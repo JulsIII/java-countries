@@ -59,14 +59,26 @@ public class CountryController
             System.out.println(c);
         }
 
-//        // total of all salaries
-//        double total = 0;
-//        for (Country c : myList)
-//        {
-//            total = total + c.getSalary();
-//        }
-//        System.out.println(total);
-
         return new ResponseEntity<>(rtnList, HttpStatus.OK);
     }
+
+    //http://localhost:2021/population/total
+    @GetMapping(value = "/population/total", produces = {"application/json"})
+    public ResponseEntity<?> listPopulationTotal()
+    {
+        List<Country> myList = new ArrayList<>();
+        countrepos.findAll().iterator().forEachRemaining(myList::add);
+
+        double total = 0;
+        for (Country c : myList)
+        {
+            total = total + c.getPopulation();
+        }
+        System.out.println("The Total Population is " + total);
+
+        return new ResponseEntity<>(myList, HttpStatus.OK);
+    }
+
+
+
 }
