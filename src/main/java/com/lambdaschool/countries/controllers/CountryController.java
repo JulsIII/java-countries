@@ -79,17 +79,19 @@ public class CountryController
         return new ResponseEntity<>(myList, HttpStatus.OK);
     }
 
-    //http://localhost:2021/population/min
-//    @GetMapping(value = "/population/min", produces = {"application/json"})
-//    public ResponseEntity<?> listPopulationMin()
-//    {
-//        List<Country> myList = new ArrayList<>();
-//        countrepos.findAll().iterator().forEachRemaining(myList::add);
+//    http://localhost:2021/population/min
+    @GetMapping(value = "/population/min", produces = {"application/json"})
+    public ResponseEntity<?> listPopulationMin()
+    {
+        List<Country> myList = new ArrayList<>();
+        countrepos.findAll().iterator().forEachRemaining(myList::add);
 
- //we were never shown this. not part of the lessons or canvas.
+        myList.sort((c1, c2) -> (int) (c1.getPopulation() - c2.getPopulation()));
 
-//        return new ResponseEntity<>(myList, HttpStatus.OK);
-//    }
+        Country rtnCountry = myList.get(0);
+
+        return new ResponseEntity<>(rtnCountry, HttpStatus.OK);
+    }
 
 
 
